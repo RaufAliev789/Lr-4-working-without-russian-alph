@@ -1,40 +1,53 @@
-﻿#include <iostream>
+﻿/* Дана строка. Слово есть любая
+последовательность букв,
+разделенных пробелом. Удалить в
+этой строке все слова,
+начинающиеся на заданную букву без
+учета регистра этой буквы. */
+
+#include <iostream>
 #include <string>
+using namespace std;
 
-std::string Remove_words(std::string stroka, char letter) {
-    setlocale(LC_ALL, "ru");
-    int i = 0;
-    while (i < stroka.size()) {
-        if ((stroka[i] == letter) || (stroka[i] == letter + 32) || (stroka[i] == letter - 32)) {
-            int j = i;
-            while ((i < stroka.size()) && stroka[i] != ' ') {
-                i++;
-            }
-            stroka.erase(j, i - j);
-            i = j; // Обновляем индекс после удаления слова
-        }
-        else {
-            i++;
-        }
-    }
-
-    return stroka;
-}
-
-int main() {
+int main()
+{
     setlocale(LC_ALL, "ru");
 
+    string stroka;
+    string res = "";
+    char pred = ' ';
+    bool add = false;
+    cout << "Введите строку: " << endl;
+    getline(cin, stroka);
+    cout << "Введите букву, благодаря которой исчезнут слова, начинающиеся с этой буквы: ";
     char letter;
-    std::string stroka;
+    cin >> letter;
 
-    std::cout << "Введите строку: " << std::endl;
-    std::getline(std::cin, stroka);
-
-    std::cout << "Введите букву, благодаря которой исчезнут слова, начинающиеся с нее: " << std::endl;
-    std::cin >> letter;
-
-    std::string result = Remove_words(stroka, letter);
-    std::cout << "Слова без буквы " << letter << " : " << result << std::endl;
+    for (int i = 0; i < stroka.size(); i++)
+    {
+        if (pred == ' ')
+        {
+            bool isletter = false;
+            if (tolower(stroka[i]) == tolower(letter))
+            {
+                isletter = true;
+            }
+            if (!isletter)
+            {
+                add = true;
+            }
+            else
+            {
+                add = false;
+            }
+        }
+        if (add)
+        {
+            res += stroka[i];
+        }
+        pred = res[i];
+    }
+    cout << res;
 
     return 0;
 }
