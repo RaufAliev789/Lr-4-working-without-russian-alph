@@ -7,28 +7,37 @@
 
 #include <iostream>
 #include <string>
-using namespace std;
+
+char toLowerFunc(char symbol) {
+    if ((symbol >= 'A' && symbol <= 'Z') || (symbol >= 'А' && symbol <= 'Я') ) {
+        return symbol + 32;
+    }
+    return symbol;
+}
 
 int main()
 {
     setlocale(LC_ALL, "ru");
 
-    string stroka;
-    string res = "";
+    std::string stroka;
+    std::string res = "";
     char pred = ' ';
     bool add = false;
-    cout << "Введите строку: " << endl;
-    getline(cin, stroka);
-    cout << "Введите букву, благодаря которой исчезнут слова, начинающиеся с этой буквы: ";
+    std::cout << "Введите строку: " << std::endl;
+    std::getline(std::cin, stroka);
+    std::cout << "Введите букву, благодаря которой исчезнут слова, начинающиеся с этой буквы: ";
     char letter;
-    cin >> letter;
+    std::cin >> letter;
+
+    char lower = toLowerFunc(letter);
 
     for (int i = 0; i < stroka.size(); i++)
     {
         if (pred == ' ')
         {
             bool isletter = false;
-            if (tolower(stroka[i]) == tolower(letter))
+
+            if  (stroka[i] == lower)
             {
                 isletter = true;
             }
@@ -47,7 +56,7 @@ int main()
         }
         pred = res[i];
     }
-    cout << res;
+    std::cout << res;
 
     return 0;
 }
