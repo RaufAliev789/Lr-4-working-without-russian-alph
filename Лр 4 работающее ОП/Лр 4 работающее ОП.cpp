@@ -8,9 +8,11 @@
 #include <iostream>
 #include <string>
 
-char toLowerFunc(char symbol) {
-    if ((symbol >= 'A' && symbol <= 'Z') || (symbol >= 'А' && symbol <= 'Я') ) {
-        return symbol + 32;
+char toLowerFunc(char symbol)
+{
+    if ((symbol >= 'A' && symbol <= 'Z') || (symbol >= 'А' && symbol <= 'Я'))
+    {
+        symbol += 32;
     }
     return symbol;
 }
@@ -23,9 +25,11 @@ int main()
     std::string res = "";
     char pred = ' ';
     bool add = false;
+
     std::cout << "Введите строку: " << std::endl;
     std::getline(std::cin, stroka);
-    std::cout << "Введите букву, благодаря которой исчезнут слова, начинающиеся с этой буквы: ";
+
+    std::cout << "Введите букву, на основе которой будут удаляться слова: ";
     char letter;
     std::cin >> letter;
 
@@ -33,28 +37,20 @@ int main()
 
     for (int i = 0; i < stroka.size(); i++)
     {
-        if (pred == ' ')
+        if (pred == ' ' && toLowerFunc(stroka[i]) == lower)
         {
-            bool isletter = false;
-
-            if  (stroka[i] == lower)
-            {
-                isletter = true;
-            }
-            if (!isletter)
-            {
-                add = true;
-            }
-            else
-            {
-                add = false;
-            }
+            add = false;
         }
+        else if (stroka[i] == ' ')
+        {
+            add = true;
+        }
+
         if (add)
         {
             res += stroka[i];
         }
-        pred = res[i];
+        pred = stroka[i];
     }
     std::cout << res;
 
